@@ -33,8 +33,10 @@ def detailed_cleaning(file_path):
     
     # 執行處理缺失值
     # age 用中位數填補
-    age_median = df['age'].median()
-    df['age'] = df['age'].fillna(age_median)
+    # age_median = df['age'].median()
+    # df['age'] = df['age'].fillna(age_median)
+
+    df['age'] = df['age'].fillna(0)# 先填補為0,當成無效數據但又保留該列的銷售金額資料
     df['age'] = df['age'].astype('int8')# 再轉整數
     
     # FN / Active 缺失代表 0
@@ -46,7 +48,7 @@ def detailed_cleaning(file_path):
     # 會員狀態缺失補 'NONE'
     df['club_member_status'] = df['club_member_status'].fillna('NONE')
     # 郵遞區號缺失補 '0'
-    df['postal_code'] = df['postal_code'].fillna('0')
+    df['postal_code'] = df['postal_code'].fillna('no postal code')
     
     # fashion_news_frequency 缺失補 'NONE'
     df['fashion_news_frequency'] = df['fashion_news_frequency'].fillna('NONE')
