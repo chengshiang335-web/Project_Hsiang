@@ -85,11 +85,11 @@ if __name__ == "__main__":
             df_final = clean_transactions_by_chunks(file_path, chunk_size=2000000)
             
             # 儲存結果
-            df_final.to_csv('./Assets/clean_transactions.csv', index=False)
+            #df_final.to_csv('./Assets/clean_transactions.csv', index=False)
             print("\n[OK] 清洗後的檔案已儲存至 clean_transactions.csv")
 
             # 建議保存為高效格式，避免下次又要清洗一次
-            # df_final.to_parquet('transactions_cleaned.parquet')
+            df_final.to_parquet('transactions_cleaned.parquet')
             
         except Exception as e:
             print(f"執行過程中發生錯誤: {e}")
