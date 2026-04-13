@@ -48,7 +48,7 @@ def clean_articles_data(input_file, output_file):
 
 if __name__ == "__main__":
     # 設定檔案路徑
-    BASE_DIR = r"C:\Project_Hsiang\assets\kaggle"
+    BASE_DIR = r"C:\Project_Hsiang\assets"
     input_csv = os.path.join(BASE_DIR, "articles.csv")
     output_csv = os.path.join(BASE_DIR, "articles_cleaned.csv")
     
