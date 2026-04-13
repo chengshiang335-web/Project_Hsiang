@@ -32,10 +32,6 @@ def detailed_cleaning(file_path):
     print(df[['age', 'FN', 'Active', 'club_member_status','fashion_news_frequency','postal_code']].isnull().sum())
     
     # 執行處理缺失值
-    # age 用中位數填補
-    # age_median = df['age'].median()
-    # df['age'] = df['age'].fillna(age_median)
-
     df['age'] = df['age'].fillna(0)# 先填補為0,當成無效數據但又保留該列的銷售金額資料
     df['age'] = df['age'].astype('int8')# 再轉整數
     
@@ -64,7 +60,6 @@ def detailed_cleaning(file_path):
     
     print("\n===== 2. 清洗完成報告 =====")
     print(f"最終剩餘筆數: {len(df)}")
-    print(f"平均年齡: {df['age'].mean():.2f}")
     
     return df
 

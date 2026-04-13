@@ -4,12 +4,9 @@ import numpy as np
 # 1. 載入資料
 def load_and_explore(file_path):
     
-    
-    
-    print(f"file_path:({file_path})" )
     df = pd.read_csv(file_path, encoding="latin1")
-    print("--- 清洗前資料形狀 ---")
-    print(df.shape)
+    print(f"--- 資料形狀(列,欄): {df.shape}")
+
     print("--- 資料概況 ---")
     print(df.info())  # 查看每欄的資料型態與非空值數量
     return df
@@ -21,11 +18,6 @@ def clean_data(df):
     duplicate_count = df.duplicated(subset=['article_id']).sum()
     print(f"重複的 ID 數量: {duplicate_count}")
     df = df.drop_duplicates(subset=['article_id'], keep='first')
-
-    # B. 處理缺失值 (Missing Values)
-    # 查看哪些欄位有缺失
-    print("\n缺失值統計:")
-    print(df.isnull().sum())
     
     # 範例：如果 detail_desc 缺失，填入 "No description"
     df['detail_desc'] = df['detail_desc'].fillna('No description')
@@ -38,8 +30,7 @@ def clean_data(df):
     # 確保 article_id 是字串（避免開頭的 0 被去掉）
     df['article_id'] = df['article_id'].astype(str)
     # 先轉字串，再補齊 10 位數(雙重保險，確保所有 ID 都是 10 位數字)
-    #df['article_id'] = df['article_id'].astype(str).str.zfill(10)
-
+    df['article_id'] = df['article_id'].astype(str).str.zfill(10)
     return df
 
 # 3. 儲存結果
@@ -55,4 +46,13 @@ if __name__ == "__main__":
     # 執行流程
     raw_df = load_and_explore(file_path)
     cleaned_df = clean_data(raw_df)
+
+    print("\n--- 缺失值處理成效 ---")
+    null_compare = pd.DataFrame({
+        '清洗前 (Nulls)': raw_df.isnull().sum(),
+        '清洗後 (Nulls)': cleaned_df.isnull().sum()
+    })
+        # 只顯示有缺失過或是被處理過的欄位
+    print(null_compare[null_compare['清洗前 (Nulls)'] > 0])
+
     save_data(cleaned_df, cleaned_file_path)
