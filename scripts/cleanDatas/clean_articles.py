@@ -49,10 +49,10 @@ def save_data(df, output_path):
 
 if __name__ == "__main__":
     file_path = './Assets/articles.csv'
-    file_path = './Assets/articles_cleaned.csv'
+    cleaned_file_path = './Assets/articles_cleaned.csv'
     
     
     # 執行流程
     raw_df = load_and_explore(file_path)
     cleaned_df = clean_data(raw_df)
-    #save_data(cleaned_df, './Assets/articles_cleaned.csv')
+    save_data(cleaned_df, cleaned_file_path)
